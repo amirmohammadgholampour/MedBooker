@@ -6,6 +6,7 @@ from django.contrib.auth.models import (
 )
 import uuid
 from django.utils import timezone
+from django.core.exceptions import ValidationError 
 
 class UserManager(BaseUserManager):
     def create_user(self, username, password=None, **extra_fields):
@@ -58,10 +59,17 @@ class User(AbstractBaseUser, PermissionsMixin):
     USERNAME_FIELD = 'phone_number'
     REQUIRED_FIELDS = ['username', 'email', 'national_code', 'user_type']
 
+    def validate_profile_image_size(image):
+        max = 10 * 1024 * 1024 
+        if image.size > max.size:
+            raise ValidationError("The image size cannot exceed 10 MB.")
+        
+    profile_image = models.ImageField(upload_to="profiles/", null=True, blank=True, verbose_name="Profile Image", validators=[validate_profile_image_size])
+
     @property
     def is_staff(self):
         return self.is_admin
-
+    
     def __str__(self):
         return f"username: {self.username} ({self.user_type})"
     
