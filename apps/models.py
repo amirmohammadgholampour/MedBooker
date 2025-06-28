@@ -1,3 +1,1 @@
-from django.db import models
-
-# Create your models here.
+from apps.main_models.Users_models import User, UserManager 
