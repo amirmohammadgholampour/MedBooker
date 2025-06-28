@@ -26,22 +26,31 @@ class UserManager(BaseUserManager):
 class User(AbstractBaseUser, PermissionsMixin):
     id = models.UUIDField(primary_key=True, editable=False, default=uuid.uuid4)
     username = models.CharField(max_length=255, unique=True)
-    first_name= models.CharField(max_length=255, null=True, blank=True)
-    last_name = models.CharField(max_length=255, null=True, blank=True)
-    email = models.EmailField(unique=True)
+    first_name= models.CharField(max_length=255, null=True, blank=True, verbose_name="First name")
+    last_name = models.CharField(max_length=255, null=True, blank=True, verbose_name="Last name")
+    email = models.EmailField(unique=True, verbose_name="Email")
     phone_number = models.CharField(max_length=11, unique=True, verbose_name="Phone number")
     national_code = models.CharField(max_length=10, unique=True, verbose_name="National code")
+    
+    GENDER_TYPE_CHOICES = [
+        ("male", "Male"),
+        ("female", "Female"),
+        ("choose_not_to_say", "I prefer not to say")
+    ]
+    gender = models.CharField(max_length=255, choices=GENDER_TYPE_CHOICES, verbose_name="Gender")
+
+    birth_date = models.DateField() 
 
     USER_TYPE_CHOICES = [
         ("doctor", "Doctor"),
         ("patient", "Patient")
     ]
-    user_type = models.CharField(max_length=255, choices=USER_TYPE_CHOICES, verbose_name="User type")
+    user_type = models.CharField(max_length=255, choices=USER_TYPE_CHOICES, verbose_name="User type", default="patient")
 
     is_admin = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
 
-    created = models.DateTimeField(default=timezone.now)
+    join_date = models.DateTimeField(default=timezone.now)
     updated = models.DateTimeField(auto_now=True)
 
     objects = UserManager()
@@ -57,4 +66,4 @@ class User(AbstractBaseUser, PermissionsMixin):
         return f"username: {self.username} ({self.user_type})"
     
     class Meta:
-        ordering = ["created"]
+        ordering = ["join_date"]
