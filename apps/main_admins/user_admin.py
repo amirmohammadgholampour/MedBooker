@@ -13,7 +13,7 @@ class UserAdmin(BaseUserAdmin):
         "username", 
         "phone_number", 
         "national_code",
-        "is_admin",
+        "is_staff",
         "is_active",
         "first_name", 
         "last_name",
@@ -24,7 +24,7 @@ class UserAdmin(BaseUserAdmin):
     ]
 
     list_filter = [
-        "is_admin",
+        "is_staff",
         "is_active",
         "user_type"
     ]
