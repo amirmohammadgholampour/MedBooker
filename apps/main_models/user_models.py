@@ -10,8 +10,8 @@ from django.core.exceptions import ValidationError
 
 
 def validate_profile_image_size(image):
-    max = 15 * 1024 * 1024 
-    if image.size > max.size:
+    max_size = 15 * 1024 * 1024 
+    if image.size > max_size:
         raise ValidationError("The image size cannot exceed 10 MB.")
     
 class UserManager(BaseUserManager):
