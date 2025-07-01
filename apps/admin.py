@@ -1,3 +1,1 @@
-from django.contrib import admin
-
-# Register your models here.
+from apps.main_admins.user_admin import UserAdmin
