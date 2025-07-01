@@ -46,7 +46,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     ]
     gender = models.CharField(max_length=255, choices=GENDER_TYPE_CHOICES, verbose_name="Gender")
 
-    birth_date = models.DateField() 
+    birth_date = models.DateField(blank=True, null=True) 
 
     USER_TYPE_CHOICES = [
         ("doctor", "Doctor"),
