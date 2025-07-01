@@ -75,4 +75,4 @@ class User(AbstractBaseUser, PermissionsMixin):
         return f"username: {self.username} ({self.user_type})"
     
     class Meta:
-        ordering = ["join_date"]
+        ordering = ["-join_date"]
