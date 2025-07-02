@@ -49,6 +49,8 @@ class Doctor(models.Model):
     social_media = models.URLField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    slug = models.SlugField(unique=True)
+
 
     def __str__(self):
         return f"Dr. {self.doctor_user.first_name} {self.doctor_user.last_name} ({self.expertise})"
