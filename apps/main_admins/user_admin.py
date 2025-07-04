@@ -20,7 +20,8 @@ class UserAdmin(BaseUserAdmin):
         "email",
         "gender",
         "birth_date",
-        "user_type"
+        "user_type",
+        "is_superuser"
     ]
 
     list_filter = [
